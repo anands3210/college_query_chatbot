@@ -1,0 +1,34 @@
+# Web Framework - For Flask and its dependencies
+# Used in app.py
+Flask==2.3.3  # Main Flask framework
+Werkzeug==2.3.7  # WSGI utility library for Flask
+Jinja2==3.1.2  # Templating engine used in templates/*.html
+MarkupSafe==2.1.3  # For safe HTML/XML escaping
+click==8.1.7  # For command line interface
+itsdangerous==2.1.2  # For data signing
+blinker==1.6.2  # For Flask signals
+
+# Database - For SQLite database operations
+# Used in app.py for FAQ model and database operations
+Flask-SQLAlchemy==3.1.1  # Flask integration with SQLAlchemy
+SQLAlchemy==2.0.20  # Python SQL toolkit
+greenlet==2.0.2  # SQLAlchemy dependency
+
+# Text Matching - For FAQ matching functionality
+# Used in app.py for fuzzy matching user questions with FAQ database
+fuzzywuzzy==0.18.0  # Text matching library
+python-Levenshtein==0.21.1  # Speed optimization for fuzzywuzzy
+
+# Type Hints - For Python type hints
+# Used across the project for better code documentation
+typing_extensions==4.7.1  # Additional support for type hints
+
+# File Operations - For handling file uploads
+# Used in app.py for CSV operations
+python-csv==0.0.13  # For CSV file handling
+
+# Production Server
+gunicorn==21.2.0  # Production WSGI server
+
+
+

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #2b4162 0%, #12100e 100%);
+            color: white;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 80px; /* Added padding to account for fixed header */
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('static/images/pattern.png');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 30px;
+            padding: 30px;
+            max-width: 1800px;
+            margin: 20px auto 0; /* Reduced top margin */
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            margin-top: 60px; /* Reduced margin */
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: left;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        input {
+            background: rgba(255, 255, 255, 0.1);
+            width: 95%;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        button {
+            background: linear-gradient(45deg, #3a5f8f, #2b4162);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #2b4162, #3a5f8f);
+            transform: translateY(-2px);
+        }
+
+        .logout {
+            background: linear-gradient(45deg, #c62828, #b71c1c);
+            margin: 20px auto;
+            max-width: 200px;
+            display: block;
+        }
+
+        .faq-container {
+            max-height: 600px;
+            overflow-y: auto;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .faq-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .faq-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .faq-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            background: transparent;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(43, 65, 98, 0.9);
+            color: white;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        tr {
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.01);
+        }
+
+        td:first-child, th:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        td:last-child, th:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            padding: 8px 15px;
+            font-size: 13px;
+        }
+
+        .file-upload {
+            position: relative;
+            padding: 30px;
+            text-align: center;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .icon {
+            margin-right: 8px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <h1><i class="fas fa-tachometer-alt icon"></i>Admin Dashboard</h1>
+    <a href="/logout"><button class="logout">
+        <i class="fas fa-sign-out-alt icon"></i>Logout
+    </button></a>
+    
+    <div class="dashboard-grid">
+        <div class="container">
+            <h2><i class="fas fa-plus-circle icon"></i>Add New FAQ</h2>
+            <form action="/add_faq" method="POST">
+                <input type="text" name="question" placeholder="Enter Question" required><br><br>
+                <input type="text" name="answer" placeholder="Enter Answer" required><br><br>
+                <button type="submit"><i class="fas fa-plus icon"></i>Add FAQ</button>
+            </form>
+        </div>
+
+        <div class="container">
+            <h2><i class="fas fa-upload icon"></i>Upload FAQs</h2>
+            <form action="/upload_csv" method="POST" enctype="multipart/form-data">
+                <div class="file-upload" accept=".csv">
+                    <i class="fas fa-file-csv fa-2x"></i>
+                    <p>Drop your CSV file here or click to browse</p>
+                    <input type="file" name="csv_file" accept=".csv" required>
+                </div>
+                <button type="submit"><i class="fas fa-cloud-upload-alt icon"></i>Upload CSV</button>
+            </form>
+        </div>
+
+        <div class="container" style="grid-column: 1 / -1;">
+            <h2><i class="fas fa-list icon"></i>Manage FAQs</h2>
+            <div class="faq-container">
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for faq in faqs %}
+                    <tr>
+                        <td>{{ faq.id }}</td>
+                        <td>{{ faq.question }}</td>
+                        <td>{{ faq.answer }}</td>
+                        <td class="action-buttons">
+                            <button onclick="window.location.href='/edit_faq/{{ faq.id }}'">
+                                <i class="fas fa-edit icon"></i>Edit
+                            </button>
+                            <button onclick="if(confirm('Are you sure?')) window.location.href='/delete_faq/{{ faq.id }}'" 
+                                    style="background: linear-gradient(45deg, #c62828, #b71c1c);">
+                                <i class="fas fa-trash-alt icon"></i>Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <button onclick="window.location.href='/download_csv'">
+                <i class="fas fa-download icon"></i>Download FAQs as CSV
+            </button>
+        </div>
+    </div>
+</body>
+</html>
