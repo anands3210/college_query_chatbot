@@ -129,7 +129,10 @@ Common issues and solutions:
 ## Developer Contact
 
 For any queries or support, please contact:
+
 Anand Srivastava
+anandk1406@gmail.com
+7479970111
 
 
 
