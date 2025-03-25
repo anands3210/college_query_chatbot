@@ -13,6 +13,7 @@ blinker==1.6.2  # For Flask signals
 Flask-SQLAlchemy==3.1.1  # Flask integration with SQLAlchemy
 SQLAlchemy==2.0.20  # Python SQL toolkit
 greenlet==2.0.2  # SQLAlchemy dependency
+psycopg2-binary==2.9.9  # PostgreSQL adapter
 
 # Text Matching - For FAQ matching functionality
 # Used in app.py for fuzzy matching user questions with FAQ database
